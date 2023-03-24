@@ -9,46 +9,35 @@ import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 
 
-class MySingleton private constructor(private var ctx: Context) {
-    private var requestQueue: RequestQueue?
-    val imageLoader: ImageLoader
-
-    init {
-        requestQueue = getRequestQueue()
-        imageLoader = ImageLoader(requestQueue,
+class MySingleton constructor(context: Context) {
+    companion object {
+        @Volatile
+        private var INSTANCE: MySingleton? = null
+        fun getInstance(context: Context) =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: MySingleton(context).also {
+                    INSTANCE = it
+                }
+            }
+    }
+    val imageLoader: ImageLoader by lazy {
+        ImageLoader(requestQueue,
             object : ImageLoader.ImageCache {
                 private val cache = LruCache<String, Bitmap>(20)
-                override fun getBitmap(url: String): Bitmap {
-                    return cache[url]
+                override fun getBitmap(url: String): Bitmap? {
+                    return cache.get(url)
                 }
-
                 override fun putBitmap(url: String, bitmap: Bitmap) {
                     cache.put(url, bitmap)
                 }
             })
     }
-
-    fun getRequestQueue(): RequestQueue? {
-        if (requestQueue == null) {
-            // getApplicationContext() is key, it keeps you from leaking the
-            // Activity or BroadcastReceiver if someone passes one in.
-            requestQueue = Volley.newRequestQueue(ctx.applicationContext)
-        }
-        return requestQueue
+    val requestQueue: RequestQueue by lazy {
+        // applicationContext is key, it keeps you from leaking the
+        // Activity or BroadcastReceiver if someone passes one in.
+        Volley.newRequestQueue(context.applicationContext)
     }
-
-    fun <T> addToRequestQueue(req: Request<T>?) {
-        getRequestQueue()!!.add(req)
-    }
-
-    companion object {
-        private var instance: MySingleton? = null
-        @Synchronized
-        fun getInstance(context: Context): MySingleton? {
-            if (instance == null) {
-                instance = MySingleton(context)
-            }
-            return instance
-        }
+    infix fun <T> addToRequestQueue(req: Request<T>) {
+        requestQueue.add(req)
     }
 }
