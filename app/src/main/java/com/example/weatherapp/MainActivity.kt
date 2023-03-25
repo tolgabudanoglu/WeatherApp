@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val url = "https://api.openweathermap.org/data/2.5/weather?q=Mugla&appid=dbebd51d2e67e2d589db303fb923efad&lang=tr"
-        val havaDurumuObjeRequest = JsonObjectRequest(Request.Method.GET, url, null,object : Response.Listener<JSONObject> {
+        val url = "https://api.openweathermap.org/data/2.5/weather?q=Mugla&appid=dbebd51d2e67e2d589db303fb923efad&lang=tr&units=metric"
+        val weatherObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,object : Response.Listener<JSONObject> {
 
 
             override fun onResponse(response: JSONObject?) {
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        MySingleton.getInstance(this).addToRequestQueue(havaDurumuObjeRequest)
+        MySingleton.getInstance(this).addToRequestQueue(weatherObjectRequest)
     }
 
 
