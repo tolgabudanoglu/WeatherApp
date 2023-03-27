@@ -28,9 +28,13 @@ class MainActivity : AppCompatActivity() {
                 var main = response?.getJSONObject("main")
                 var tempereture = main?.getString("temp")
 
-                var cityName = response?.getString("city")
+                var cityName = response?.getString("name")
 
-                var weather=response?.getJSONObject("weather")
+                var weather=response?.getJSONArray("weather")
+                var descrition = weather?.getJSONObject(0)?.getString("description")
+                var icon = weather?.getJSONObject(0)?.getString("icon")
+
+                Log.e("t",tempereture + " " + cityName + " " + descrition + " " + icon)
 
 
 
