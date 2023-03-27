@@ -12,7 +12,8 @@ import com.android.volley.toolbox.Volley
 import com.android.volley.Request;
 import com.android.volley.VolleyError
 import com.example.weatherapp.databinding.ActivityMainBinding
-import java.util.Calendar
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     fun history(){
         var calendar = Calendar.getInstance()
+        var format=SimpleDateFormat("EEEE, MMMM yyyy", Locale("tr"))
     }
 
     private fun String.lastDigitDelete(): String{
