@@ -2,6 +2,7 @@ package com.example.weatherapp
 
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
@@ -24,7 +25,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(response: JSONObject?) {
 
-                Toast.makeText(this@MainActivity,response.toString(),Toast.LENGTH_LONG).show()
+                var main = response?.getJSONObject("main")
+                var tempereture = main?.getString("temp")
+
+                var cityName = response?.getString("city")
+
+                var weather=response?.getJSONObject("weather")
 
 
 
