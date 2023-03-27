@@ -1,0 +1,133 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision cf08570f8edbc5614d3d9bda956ce9c54a5ac216)
++++ b/app/build.gradle	(revision ea0b7e40721f1fc04ce99bed5daf27144543364a)
+@@ -1,7 +1,7 @@
+ plugins {
+     id 'com.android.application'
+     id 'org.jetbrains.kotlin.android'
+-    id 'kotlin-android-extensions'
++
+ }
+ 
+ android {
+@@ -31,6 +31,9 @@
+     kotlinOptions {
+         jvmTarget = '1.8'
+     }
++    buildFeatures {
++        viewBinding = true
++    }
+ }
+ 
+ dependencies {
+Index: app/src/main/java/com/example/weatherapp/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/weatherapp/MainActivity.kt b/app/src/main/java/com/example/weatherapp/MainActivity.kt
+--- a/app/src/main/java/com/example/weatherapp/MainActivity.kt	(revision cf08570f8edbc5614d3d9bda956ce9c54a5ac216)
++++ b/app/src/main/java/com/example/weatherapp/MainActivity.kt	(revision ea0b7e40721f1fc04ce99bed5daf27144543364a)
+@@ -11,13 +11,18 @@
+ import com.android.volley.toolbox.Volley
+ import com.android.volley.Request;
+ import com.android.volley.VolleyError
+-import kotlinx.android.synthetic.main.activity_main.*
++import com.example.weatherapp.databinding.ActivityMainBinding
++import java.util.Calendar
+ 
+ 
+ class MainActivity : AppCompatActivity() {
++
++    private lateinit var binding: ActivityMainBinding
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main)
++        binding = ActivityMainBinding.inflate(layoutInflater)
++        setContentView(binding.root)
+ 
+ 
+         val url = "https://api.openweathermap.org/data/2.5/weather?q=Mugla&appid=dbebd51d2e67e2d589db303fb923efad&lang=tr&units=metric"
+@@ -27,16 +32,30 @@
+             override fun onResponse(response: JSONObject?) {
+ 
+                 var main = response?.getJSONObject("main")
+-                var tempereture = main?.getString("temp")
++                var tempereture = main?.getInt("temp")
++                binding.tvTemp.text = tempereture.toString()
+ 
+                 var cityName = response?.getString("name")
+ 
+                 var weather=response?.getJSONArray("weather")
+                 var descrition = weather?.getJSONObject(0)?.getString("description")
+-                tvDescription.text = descrition
++
++                binding.tvDescription.text = descrition
+                 var icon = weather?.getJSONObject(0)?.getString("icon")
+ 
+-                Log.e("t",tempereture + " " + cityName + " " + descrition + " " + icon)
++                if (icon?.last() == 'd'){
++                    binding.rootLayout.background = getDrawable(R.drawable.bg)
++                }else{
++                    binding.rootLayout.background = getDrawable(R.drawable.gece)
++                }
++
++
++
++                var imageFile = resources.getIdentifier("icon_"+icon?.lastDigitDelete(),"drawable",packageName)
++
++                binding.imgWeather.setImageResource(imageFile)
++
++
+ 
+ 
+ 
+@@ -55,6 +74,15 @@
+         MySingleton.getInstance(this).addToRequestQueue(weatherObjectRequest)
+     }
+ 
++    fun history(){
++        var calendar = Calendar.getInstance()
++    }
++
++    private fun String.lastDigitDelete(): String{
++
++        return this.substring(0,this.length-1)
++    }
++
+ 
+ 
+ 
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision cf08570f8edbc5614d3d9bda956ce9c54a5ac216)
++++ b/app/src/main/res/layout/activity_main.xml	(revision ea0b7e40721f1fc04ce99bed5daf27144543364a)
+@@ -4,8 +4,9 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@drawable/bg"
++    android:background="@drawable/gece"
+     tools:context=".MainActivity"
++    android:id="@+id/rootLayout"
+     tools:layout_editor_absoluteX="0dp"
+     tools:layout_editor_absoluteY="4dp">
+ 
+@@ -62,7 +63,7 @@
+         app:layout_constraintBottom_toBottomOf="@+id/tvTemp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/tvTemp"
+-        app:srcCompat="@drawable/icon_01" />
++        app:srcCompat="@drawable/icon_02" />
+ 
+     <TextView
+         android:id="@+id/tvDescription"
