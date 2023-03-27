@@ -11,13 +11,18 @@ import org.json.JSONObject
 import com.android.volley.toolbox.Volley
 import com.android.volley.Request;
 import com.android.volley.VolleyError
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.weatherapp.databinding.ActivityMainBinding
+import java.util.Calendar
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         val url = "https://api.openweathermap.org/data/2.5/weather?q=Mugla&appid=dbebd51d2e67e2d589db303fb923efad&lang=tr&units=metric"
@@ -27,16 +32,30 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(response: JSONObject?) {
 
                 var main = response?.getJSONObject("main")
-                var tempereture = main?.getString("temp")
+                var tempereture = main?.getInt("temp")
+                binding.tvTemp.text = tempereture.toString()
 
                 var cityName = response?.getString("name")
 
                 var weather=response?.getJSONArray("weather")
                 var descrition = weather?.getJSONObject(0)?.getString("description")
-                tvDescription.text = descrition
+
+                binding.tvDescription.text = descrition
                 var icon = weather?.getJSONObject(0)?.getString("icon")
 
-                Log.e("t",tempereture + " " + cityName + " " + descrition + " " + icon)
+                if (icon?.last() == 'd'){
+                    binding.rootLayout.background = getDrawable(R.drawable.bg)
+                }else{
+                    binding.rootLayout.background = getDrawable(R.drawable.gece)
+                }
+
+
+
+                var imageFile = resources.getIdentifier("icon_"+icon?.lastDigitDelete(),"drawable",packageName)
+
+                binding.imgWeather.setImageResource(imageFile)
+
+
 
 
 
@@ -53,6 +72,15 @@ class MainActivity : AppCompatActivity() {
 
 
         MySingleton.getInstance(this).addToRequestQueue(weatherObjectRequest)
+    }
+
+    fun history(){
+        var calendar = Calendar.getInstance()
+    }
+
+    private fun String.lastDigitDelete(): String{
+
+        return this.substring(0,this.length-1)
     }
 
 

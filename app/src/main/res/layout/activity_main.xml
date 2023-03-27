@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/gece"
     tools:context=".MainActivity"
+    android:id="@+id/rootLayout"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="4dp">
 
@@ -62,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvTemp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvTemp"
-        app:srcCompat="@drawable/icon_01" />
+        app:srcCompat="@drawable/icon_02" />
 
     <TextView
         android:id="@+id/tvDescription"
