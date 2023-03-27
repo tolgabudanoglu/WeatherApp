@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     fun history(){
         var calendar = Calendar.getInstance()
-        var format=SimpleDateFormat("EEEE, MMMM yyyy", Locale("tr"))
+        var format=SimpleDateFormat("EEEE, MMMM yyyy", Locale("t"))
     }
 
     private fun String.lastDigitDelete(): String{
