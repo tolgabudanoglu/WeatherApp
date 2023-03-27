@@ -11,6 +11,7 @@ import org.json.JSONObject
 import com.android.volley.toolbox.Volley
 import com.android.volley.Request;
 import com.android.volley.VolleyError
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
                 var weather=response?.getJSONArray("weather")
                 var descrition = weather?.getJSONObject(0)?.getString("description")
+                tvDescription.text = descrition
                 var icon = weather?.getJSONObject(0)?.getString("icon")
 
                 Log.e("t",tempereture + " " + cityName + " " + descrition + " " + icon)
