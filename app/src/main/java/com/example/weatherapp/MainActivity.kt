@@ -1,6 +1,8 @@
 package com.example.weatherapp
 
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +10,10 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -121,28 +126,75 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
         location = SimpleLocation(this)
 
         if (!location!!.hasLocationEnabled()) {
+
+            binding.spnCity.setSelection(1)
+
+            Toast.makeText(this,"GPS AÇ YERİNİ BULALIM ",Toast.LENGTH_LONG).show()
             // ask the user to enable location access
+
             SimpleLocation.openSettings(this);
-        }
-        location?.setListener(object :SimpleLocation.Listener{
-            override fun onPositionChanged() {
+        }else{
+            if (ContextCompat.checkSelfPermission(this,ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(ACCESS_FINE_LOCATION),11)
+            }else{
 
-                 latitude = String.format("%.2f",location?.latitude)
-                 longitude = String.format("%.2f",location?.longitude)
+                location = SimpleLocation(this)
+                location?.setListener(object :SimpleLocation.Listener{
+                    override fun onPositionChanged() {
 
-                Log.e("tolgaaaaaaaa ",""+latitude + " " + longitude)
-                currentCity(latitude,longitude)
+                        latitude = String.format("%.2f",location?.latitude)
+                        longitude = String.format("%.2f",location?.longitude)
+
+                        Log.e("tolgaaaaaaaa ",""+latitude + " " + longitude)
+                        currentCity(latitude,longitude)
+
+                    }
+
+                })
+
+
+
 
             }
-
-        })
-
+        }
 
 
 
 
 
 
+
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+
+        if (requestCode==11){
+            if (grantResults.size >0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                location = SimpleLocation(this)
+                location?.setListener(object :SimpleLocation.Listener{
+                    override fun onPositionChanged() {
+
+                        latitude = String.format("%.2f",location?.latitude)
+                        longitude = String.format("%.2f",location?.longitude)
+
+                        Log.e("tolgaaaaaaaa ",""+latitude + " " + longitude)
+                        currentCity(latitude,longitude)
+
+                    }
+
+                })
+
+            }
+        }else{
+            Toast.makeText(this,"izir ver ",Toast.LENGTH_LONG).show()
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onResume() {
