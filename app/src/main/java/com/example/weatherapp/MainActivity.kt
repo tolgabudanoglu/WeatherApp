@@ -1,11 +1,13 @@
 package com.example.weatherapp
 
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
@@ -20,7 +22,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
-
+    var tvSehir: TextView? = null
     var location:SimpleLocation?=null
     var latitude:String? = null
     var longitude:String? = null
@@ -30,16 +32,23 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
     private fun currentCity(lat: String?, longitude: String?) {
 
         val url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+longitude+"&appid=dbebd51d2e67e2d589db303fb923efad&lang=tr&units=metric"
-        val weatherObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,object : Response.Listener<JSONObject> {
+
+        var cityName: String? = "Şuanki Yer"
+        val weatherObjectRequest2 = JsonObjectRequest(Request.Method.GET, url, null,object : Response.Listener<JSONObject> {
+
+
 
 
             override fun onResponse(response: JSONObject?) {
+
+
 
                 var main = response?.getJSONObject("main")
                 var tempereture = main?.getInt("temp")
                 binding.tvTemp.text = tempereture.toString()
 
                 var cityName = response?.getString("name")
+                tvSehir?.setText(cityName)
 
                 var weather=response?.getJSONArray("weather")
                 var descrition = weather?.getJSONObject(0)?.getString("description")
@@ -81,7 +90,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
         })
 
 
-        MySingleton.getInstance(this).addToRequestQueue(weatherObjectRequest)
+        MySingleton.getInstance(this).addToRequestQueue(weatherObjectRequest2)
 
     }
 
@@ -91,8 +100,10 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var spinnerAdapter = ArrayAdapter.createFromResource(this,R.array.turkey_city, android.R.layout.simple_spinner_item)
+        var spinnerAdapter = ArrayAdapter.createFromResource(this,R.array.turkey_city, R.layout.spinner_tek_satir)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spnCity.background.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP)
+
         binding.spnCity.adapter = spinnerAdapter
 
         binding.spnCity.onItemSelectedListener = this
@@ -110,14 +121,15 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                  longitude = String.format("%.2f",location?.longitude)
 
                 Log.e("tolgaaaaaaaa ",""+latitude + " " + longitude)
+                currentCity(latitude,longitude)
+
             }
 
         })
 
 
 
-        data("muğla")
-        currentCity(latitude,longitude)
+
 
 
 
@@ -206,6 +218,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         var selectedCity=p0?.getItemAtPosition(p2).toString()
+        tvSehir = p1 as TextView
         data(selectedCity)
     }
 
