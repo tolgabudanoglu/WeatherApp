@@ -29,9 +29,11 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
 
     private lateinit var binding: ActivityMainBinding
-    private fun currentCity(lat: String?, longitude: String?) {
+    private fun currentCity(lat: String?, longitude: String?) :String? {
 
         val url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+longitude+"&appid=dbebd51d2e67e2d589db303fb923efad&lang=tr&units=metric"
+
+
 
         var cityName: String? = "Şuanki Yer"
         val weatherObjectRequest2 = JsonObjectRequest(Request.Method.GET, url, null,object : Response.Listener<JSONObject> {
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                 var tempereture = main?.getInt("temp")
                 binding.tvTemp.text = tempereture.toString()
 
-                var cityName = response?.getString("name")
+                cityName= response?.getString("name")
                 tvSehir?.setText(cityName)
 
                 var weather=response?.getJSONArray("weather")
@@ -91,6 +93,14 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
 
         MySingleton.getInstance(this).addToRequestQueue(weatherObjectRequest2)
+
+        if(cityName != null){
+            return cityName
+        }else{
+            return "hata bulunamadı"
+
+        }
+
 
     }
 
@@ -217,9 +227,28 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        var selectedCity=p0?.getItemAtPosition(p2).toString()
+
         tvSehir = p1 as TextView
-        data(selectedCity)
+
+        if (p2 == 0){
+
+            var currentCityName = currentCity(latitude,longitude)
+            tvSehir?.setText(currentCityName)
+
+
+
+
+
+        }else{
+            var selectedCity=p0?.getItemAtPosition(p2).toString()
+
+            data(selectedCity)
+
+        }
+
+
+
+
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
