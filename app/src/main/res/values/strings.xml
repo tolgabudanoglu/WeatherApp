@@ -2,6 +2,7 @@
     <string name="app_name">Weather App</string>
     <string-array name="turkey_city">
         <item>Şuanki Yer</item>
+        <item>tokyo</item>
         <item>Adana</item>
         <item>Adıyaman</item>
         <item>Afyon</item>

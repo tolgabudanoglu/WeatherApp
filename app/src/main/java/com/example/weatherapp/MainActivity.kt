@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                 if (icon?.last() == 'd'){
                     binding.rootLayout.background = getDrawable(R.drawable.bg)
                 }else{
-                    binding.rootLayout.background = getDrawable(R.drawable.gece)
+                    binding.rootLayout.background = getDrawable(R.drawable.night)
                     binding.tvHistory.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvDescription.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvCelcius.setTextColor(resources.getColor(R.color.colorAccent))
@@ -264,7 +264,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                 if (icon?.last() == 'd'){
                     binding.rootLayout.background = getDrawable(R.drawable.bg)
                 }else{
-                    binding.rootLayout.background = getDrawable(R.drawable.gece)
+                    binding.rootLayout.background = getDrawable(R.drawable.night2)
                     binding.tvHistory.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvDescription.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvCelcius.setTextColor(resources.getColor(R.color.colorAccent))
