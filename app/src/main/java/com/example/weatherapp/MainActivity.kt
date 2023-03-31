@@ -52,7 +52,25 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
                 var main = response?.getJSONObject("main")
                 var tempereture = main?.getInt("temp")
+                var feelsLike = main?.getInt("feels_like")
+                var tempMin = main?.getInt("temp_min")
+                var tempMax = main?.getInt("temp_max")
+                var pressure = main?.getInt("pressure")
+                var humidity = main?.getInt("humidity")
                 binding.tvTemp.text = tempereture.toString()
+                binding.tvhumidity.text = humidity.toString().plus(" %")
+                binding.tvFeelsTemp.text = feelsLike.toString().plus("°C")
+                binding.tvLowTemp.text = tempMin.toString().plus("°C")
+                binding.tvMaxTemp.text = tempMax.toString().plus("°C")
+                binding.tvPressure.text = pressure.toString()
+
+
+                var wind = response?.getJSONObject("wind")
+                var windSpeed = wind?.getInt("speed")
+                binding.tvWindSpeed.text = windSpeed.toString().plus(" km/s")
+
+
+
 
                 cityName= response?.getString("name")
                 tvSehir?.setText(cityName)
@@ -218,7 +236,22 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
                 var main = response?.getJSONObject("main")
                 var tempereture = main?.getInt("temp")
+                var feelsLike = main?.getInt("feels_like")
+                var tempMin = main?.getInt("temp_min")
+                var tempMax = main?.getInt("temp_max")
+                var pressure = main?.getInt("pressure")
+                var humidity = main?.getInt("humidity")
                 binding.tvTemp.text = tempereture.toString()
+                binding.tvhumidity.text = humidity.toString().plus(" %")
+                binding.tvFeelsTemp.text = feelsLike.toString().plus("°C")
+                binding.tvLowTemp.text = tempMin.toString().plus("°C")
+                binding.tvMaxTemp.text = tempMax.toString().plus("°C")
+                binding.tvPressure.text = pressure.toString()
+
+
+                var wind = response?.getJSONObject("wind")
+                var windSpeed = wind?.getInt("speed")
+                binding.tvWindSpeed.text = windSpeed.toString().plus(" km/s")
 
                 var cityName = response?.getString("name")
 
