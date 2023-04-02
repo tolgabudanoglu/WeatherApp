@@ -82,13 +82,46 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                 var icon = weather?.getJSONObject(0)?.getString("icon")
 
                 if (icon?.last() == 'd'){
-                    binding.rootLayout.background = getDrawable(R.drawable.bg)
+                    binding.rootLayout.background = getDrawable(R.drawable.sunday)
+                    binding.tvHistory.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvDescription.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvCelcius.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvhumidity.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvFeelsTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvWindSpeed.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvLowTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvMaxTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvPressure.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView11.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView13.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView15.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView6.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView8.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView.setTextColor(resources.getColor(R.color.indigo))
+                    tvSehir?.setTextColor(resources.getColor(R.color.indigo))
+                    binding.spnCity.background.setColorFilter(resources.getColor(R.color.indigo), PorterDuff.Mode.SRC_ATOP)
                 }else{
                     binding.rootLayout.background = getDrawable(R.drawable.night)
                     binding.tvHistory.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvDescription.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvCelcius.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvhumidity.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvFeelsTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvWindSpeed.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvLowTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvMaxTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvPressure.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView11.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView13.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView15.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView6.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView8.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView.setTextColor(resources.getColor(R.color.colorAccent))
+                    tvSehir?.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.spnCity.background.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP)
+
                 }
 
 
@@ -135,7 +168,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
         var spinnerAdapter = ArrayAdapter.createFromResource(this,R.array.turkey_city, R.layout.spinner_tek_satir)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spnCity.background.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP)
+
 
         binding.spnCity.adapter = spinnerAdapter
 
@@ -170,18 +203,8 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
 
                 })
 
-
-
-
             }
         }
-
-
-
-
-
-
-
 
     }
 
@@ -262,13 +285,46 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                 var icon = weather?.getJSONObject(0)?.getString("icon")
 
                 if (icon?.last() == 'd'){
-                    binding.rootLayout.background = getDrawable(R.drawable.bg)
+                    binding.rootLayout.background = getDrawable(R.drawable.sunday2)
+                    binding.tvHistory.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvDescription.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvCelcius.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvhumidity.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvFeelsTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvWindSpeed.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvLowTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvMaxTemp.setTextColor(resources.getColor(R.color.indigo))
+                    binding.tvPressure.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView11.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView13.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView15.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView6.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView8.setTextColor(resources.getColor(R.color.indigo))
+                    binding.textView.setTextColor(resources.getColor(R.color.indigo))
+                    tvSehir?.setTextColor(resources.getColor(R.color.indigo))
+                    binding.spnCity.background.setColorFilter(resources.getColor(R.color.indigo), PorterDuff.Mode.SRC_ATOP)
+
                 }else{
                     binding.rootLayout.background = getDrawable(R.drawable.night2)
                     binding.tvHistory.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvDescription.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvCelcius.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvhumidity.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvFeelsTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvWindSpeed.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvLowTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvMaxTemp.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.tvPressure.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView11.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView13.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView15.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView6.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView8.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.textView.setTextColor(resources.getColor(R.color.colorAccent))
+                    tvSehir?.setTextColor(resources.getColor(R.color.colorAccent))
+                    binding.spnCity.background.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP)
                 }
 
 
