@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                 var icon = weather?.getJSONObject(0)?.getString("icon")
 
                 if (icon?.last() == 'd'){
-                    binding.rootLayout.background = getDrawable(R.drawable.sunday)
+                    binding.rootLayout.background = getDrawable(R.drawable.sunday2)
                     binding.tvHistory.setTextColor(resources.getColor(R.color.indigo))
                     binding.tvDescription.setTextColor(resources.getColor(R.color.indigo))
                     binding.tvCelcius.setTextColor(resources.getColor(R.color.indigo))
@@ -306,7 +306,7 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
                     binding.spnCity.background.setColorFilter(resources.getColor(R.color.indigo), PorterDuff.Mode.SRC_ATOP)
 
                 }else{
-                    binding.rootLayout.background = getDrawable(R.drawable.night2)
+                    binding.rootLayout.background = getDrawable(R.drawable.night)
                     binding.tvHistory.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvDescription.setTextColor(resources.getColor(R.color.colorAccent))
                     binding.tvCelcius.setTextColor(resources.getColor(R.color.colorAccent))
