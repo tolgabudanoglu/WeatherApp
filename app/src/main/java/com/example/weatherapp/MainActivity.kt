@@ -238,16 +238,9 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener{
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    override fun onResume() {
-        super.onResume()
-        location?.beginUpdates()
-    }
 
-    override fun onPause() {
-        super.onPause()
 
-        location?.endUpdates()
-    }
+
 
     fun data(sehir:String){
 
